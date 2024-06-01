@@ -58,4 +58,5 @@ public class Main {
         FileHandler fileHandler = new FileHandler();
         return (FamilyTree) fileHandler.load(filePath);
     }
+
 }
