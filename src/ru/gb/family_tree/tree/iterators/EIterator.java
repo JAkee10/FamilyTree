@@ -22,4 +22,5 @@ public class EIterator<E> implements Iterator<E> {
     public E next() {
         return humanList.get(index++);
     }
+
 }

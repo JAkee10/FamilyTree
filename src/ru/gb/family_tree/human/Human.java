@@ -160,5 +160,4 @@ public class Human implements Serializable, FamilyTreeGeneric<Human> {
     public int compareTo(Human o) {
         return name.compareTo(o.name);
     }
-
 }

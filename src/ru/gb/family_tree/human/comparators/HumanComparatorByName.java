@@ -10,4 +10,5 @@ public class HumanComparatorByName<E extends FamilyTreeGeneric<E>> implements Co
     public int compare(E o1, E o2) {
         return o1.getName().compareTo(o2.getName());
     }
+
 }

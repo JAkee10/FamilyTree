@@ -87,4 +87,5 @@ public class FamilyTree<E extends FamilyTreeGeneric<E>> implements Serializable,
     public void sortByChildrenCount() {
         humanList.sort(new HumanComparatorByChildrenCount<>());
     }
+
 }

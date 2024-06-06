@@ -26,6 +26,7 @@ public class Main {
         Human human3_2 = new Human("Valeriy", Gender.Male, LocalDate.of(2001, 7, 19), human1_1, human1_2);
 
 
+
         familyTree.addHuman(human1_1);
         familyTree.addHuman(human1_2);
         familyTree.addHuman(human2_1);

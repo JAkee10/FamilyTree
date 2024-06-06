@@ -14,4 +14,5 @@ public interface FamilyTreeGeneric<E> extends Comparable<E> {
     void setChildren(List<E> e);
     void addChildren(E e);
     int getAge(LocalDate birthDate, LocalDate DeathDate);
+
 }
