@@ -1,27 +1,22 @@
 package ru.gb.family_tree.model.service;
 
 import ru.gb.family_tree.model.family_tree.FamilyTree;
-import ru.gb.family_tree.model.family_tree.FamilyTreeGeneric;
-import ru.gb.family_tree.model.family_tree.saver.FileHandler;
-import ru.gb.family_tree.model.human.Creature;
+import ru.gb.family_tree.model.family_tree.saver.Writable;
+import ru.gb.family_tree.model.human.Gender;
 import ru.gb.family_tree.model.human.Human;
 
-import java.io.Serializable;
-import java.util.List;
+import java.time.LocalDate;
 
-public class Service<E extends Creature> {
-    private FamilyTree familyTree;
-    private E human;
-    String filePath;
+public class Service {
+    private FamilyTree<Human> familyTree;
 
 
     public Service() {
         familyTree = new FamilyTree<>();
-        filePath = "src/ru/gb/family_tree/model/family_tree/saver/tree_save.txt";
     }
 
-    public void addHuman(E e) {
-        familyTree.addHuman((FamilyTreeGeneric) e);
+    public void addHuman(String name, Gender gender, LocalDate birthDate, int fatherID, int motherID) {
+        familyTree.addHuman(new Human(name, gender, birthDate, familyTree.findByID(fatherID), familyTree.findByID(motherID)));
     }
 
     public String getFamilyTreeInfo() {
@@ -53,27 +48,14 @@ public class Service<E extends Creature> {
         return familyTree.findByName(name);
     }
 
-    public E findByID(int id) {
-        return (E) familyTree.findByID(id);
+
+    public void saveTree(Writable writable) {
+        writable.save(familyTree);
     }
 
-    public FamilyTree getTree() {
-        return familyTree;
-    }
-
-    public void saveTree() {
-        FileHandler fileHandler = new FileHandler();
-        fileHandler.save(familyTree, filePath);
-    }
-
-    public void loadTree() {
-        FileHandler fileHandler = new FileHandler();
-        familyTree = (FamilyTree) fileHandler.load(filePath);
-        // TODO попытка решить проблему с ID
-//        if (familyTree != null && human != null) {
-//            human.setHumanCounter(familyTree.getSize());
-//            System.out.println("ЗАШЁЛ В if");
-//        }
+    public void loadTree(Writable writable) {
+        familyTree = (FamilyTree<Human>) writable.load();
+        Human.setHumanCounter(familyTree.getSize());
     }
 
 }

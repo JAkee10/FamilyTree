@@ -15,7 +15,7 @@ import java.util.*;
  * @parentToString - Возвращает String с именЕМ родителя
  * @childrenToString - Возвращает String с именАМИ детей
  */
-public class Human implements Serializable, FamilyTreeGeneric<Human>, Creature {
+public class Human implements Serializable, FamilyTreeGeneric<Human>{
 
     private static int humanCounter;
     private int id;
@@ -29,7 +29,13 @@ public class Human implements Serializable, FamilyTreeGeneric<Human>, Creature {
         humanCounter = 0;
     }
 
+
+
 // getters, setters
+    // TODO Удостоверитсья в правильности решения проблемы с индексацией
+    static public void setHumanCounter(int humanCounter) {
+    Human.humanCounter = humanCounter;
+}
 
     public int getID() {
         return id;
@@ -69,23 +75,15 @@ public class Human implements Serializable, FamilyTreeGeneric<Human>, Creature {
         return Integer.parseInt(age.substring(1).split("Y")[0]);
     }
 
-    @Override
-    public void setHumanCounter(int humanCounter) {
-        Human.humanCounter = humanCounter;
-    }
-
     public void setChildren(List<Human> children) {
         this.children = children;
     }
 
-    /**
-     * Из-за того, что я в конструктор передавал значние null (если не указывать ребенка при создании объекта) -
-     * List<> не мог обработать метод .add, так что пришлось заменять один список другим)
-     * <p> Сейчас поменял значение null на new ArrayList<>() и все заработало
-     */
     public void addChildren(Human children) {
         this.children.add(children);
     }
+
+
 
 // constructions
     private Human(String name, Gender gender, LocalDate dateOfBirth, LocalDate dateOfDeath, List<Human> children, Human father, Human mother) {
@@ -124,6 +122,9 @@ public class Human implements Serializable, FamilyTreeGeneric<Human>, Creature {
         this("human", Gender.Male, LocalDate.of(new Random().nextInt(1600, 2024), new Random().nextInt(1, 13), new Random().nextInt(1, 31)));
     }
 
+
+
+// overrides
     @Override
     public boolean equals(Object o) {
         if (this == o) {

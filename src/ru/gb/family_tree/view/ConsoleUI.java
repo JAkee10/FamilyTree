@@ -1,11 +1,11 @@
 package ru.gb.family_tree.view;
 
+import ru.gb.family_tree.model.family_tree.saver.Writable;
 import ru.gb.family_tree.model.human.Gender;
 import ru.gb.family_tree.presenter.Presenter;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class ConsoleUI implements View {
@@ -13,12 +13,14 @@ public class ConsoleUI implements View {
     private Presenter presenter;
     private MainMenu mainMenu;
     private boolean work;
+    private Writable writable;
 
-    public ConsoleUI() {
+    public ConsoleUI(Writable writable) {
         scanner = new Scanner(System.in);
         presenter = new Presenter(this);
         mainMenu = new MainMenu(this);
         work = true;
+        this.writable = writable;
     }
 
 
@@ -35,6 +37,7 @@ public class ConsoleUI implements View {
     public void printAnswer(String answer) {
         System.out.println(answer);
     }
+
 
 
     public void addHuman() {
@@ -82,7 +85,7 @@ public class ConsoleUI implements View {
     public void saveTree() {
         System.out.println("Последнее сохранение будет перезаписанно на это! Вы уверены что хотите сохранить древо?");
         if (isUserSure()) {
-            presenter.saveTree();
+            presenter.saveTree(writable);
             System.out.println("Древо было успешно сохранено!");
         } else {
             System.out.println("Сохранение отменено!");
@@ -92,7 +95,7 @@ public class ConsoleUI implements View {
     public void loadTree() {
         System.out.println("Текущее древо будет удалено безвозвратно! Вы уверены что хотите загрузить сохраненное?");
         if (isUserSure()) {
-            presenter.loadTree();
+            presenter.loadTree(writable);
             getFamilyTreeInfo();
         } else {
             System.out.println("Загрузка отменена!");

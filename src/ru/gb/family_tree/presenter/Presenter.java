@@ -1,25 +1,26 @@
 package ru.gb.family_tree.presenter;
 
+import ru.gb.family_tree.model.family_tree.saver.Writable;
 import ru.gb.family_tree.model.human.Gender;
-import ru.gb.family_tree.model.human.Human;
 import ru.gb.family_tree.model.service.Service;
 import ru.gb.family_tree.view.View;
 
 import java.time.LocalDate;
 
 public class Presenter {
+    // TODO Узнать для чего тут нужен view?
     private View view;
     private Service service;
 
 
     public Presenter(View view) {
         this.view = view;
-        service = new Service<>();
+        service = new Service();
     }
 
 
     public void addHuman(String name, Gender gender, LocalDate birthDate, int fatherID, int motherID) {
-        service.addHuman(new Human(name, gender, birthDate, (Human) service.findByID(fatherID), (Human) service.findByID(motherID)));
+        service.addHuman(name, gender, birthDate, fatherID, motherID);
     }
 
     public String getFamilyTreeInfo() {
@@ -46,11 +47,11 @@ public class Presenter {
         return service.findByName(name);
     }
 
-    public void saveTree() {
-        service.saveTree();
+    public void saveTree(Writable writable) {
+        service.saveTree(writable);
     }
 
-    public void loadTree() {
-        service.loadTree();
+    public void loadTree(Writable writable) {
+        service.loadTree(writable);
     }
 }

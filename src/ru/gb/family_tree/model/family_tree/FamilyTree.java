@@ -1,6 +1,5 @@
 package ru.gb.family_tree.model.family_tree;
 
-import ru.gb.family_tree.model.family_tree.saver.FileHandler;
 import ru.gb.family_tree.model.human.comparators.HumanComparatorByAge;
 import ru.gb.family_tree.model.human.comparators.HumanComparatorByChildrenCount;
 import ru.gb.family_tree.model.family_tree.iterators.EIterator;
@@ -52,17 +51,6 @@ public class FamilyTree<E extends FamilyTreeGeneric<E>> implements Serializable,
             }
         }
     }
-
-//    public E findByName(String name) {
-//        for (E e : humanList) {
-//            if (e.getName().equals(name)) {
-//                System.out.print(e);
-//                System.out.println(childrenToString(e.getChildren()));
-//                return e;
-//            }
-//        }
-//        return null;
-//    }
 
     public String findByName(String name) {
         StringBuilder result = new StringBuilder();
